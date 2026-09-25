@@ -32,6 +32,7 @@ let registrations =
   "registrations",
   JSON.stringify(registrations)
 );
+localStorage.setItem("currentUserEmail", email);
 alert("Registration submitted successfully!");
 form.reset();
 });

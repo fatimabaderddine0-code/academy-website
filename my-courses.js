@@ -2,7 +2,12 @@ const container = document.getElementById("myCoursesContainer");
 
 const registrations =
   JSON.parse(localStorage.getItem("registrations")) || [];
-if (registrations.length === 0) {
+const currentUserEmail =
+  localStorage.getItem("currentUserEmail");
+const myRegistrations = registrations.filter((registration) => {
+  return registration.email === currentUserEmail;
+});
+if (myRegistrations.length === 0) {
   container.innerHTML = `
     <div class="col-12 text-center">
       <p class="lead">You have not registered for any courses yet.</p>
@@ -13,7 +18,7 @@ if (registrations.length === 0) {
     </div>
   `;
 }
-registrations.forEach((registration) => {
+myRegistrations.forEach((registration) => {
   container.innerHTML += `
     <div class="col-md-4">
       <div class="card h-100">
@@ -24,15 +29,7 @@ registrations.forEach((registration) => {
           </h5>
 
           <p class="card-text">
-            <strong>Name:</strong> ${registration.name}
-          </p>
-
-          <p class="card-text">
-            <strong>Email:</strong> ${registration.email}
-          </p>
-
-          <p class="card-text">
-            <strong>Phone:</strong> ${registration.phone}
+            <strong>Status:</strong> Registered
           </p>
 
         </div>
